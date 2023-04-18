@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>START TEST</button>
+    <div class="timer" style="color: lightcoral">
+      <h3>Timer:</h3>
+      <p>0</p>
+    </div>
+    <div class="coords" style="color: rebeccapurple">
+      <h3>Результат выполнения функции:</h3>
+      <p>Нет результатов</p>
+    </div>
+    <script>
+      const btn = document.querySelector("button");
+      let timersec = 0;
+      let intervalID;
+
+      function success(pos) {
+        const crd = pos.coords;
+        document.querySelector(
+          ".coords p"
+        ).textContent = `Latitude: ${crd.latitude}, Longitude: ${crd.longitude}`;
+        clearInterval(intervalID);
+      }
+
+      function failed(err) {
+        document.querySelector(
+          ".coords p"
+        ).textContent = `Ошибка ${err.code}: ${err.message}`;
+        clearInterval(intervalID);
+      }
+
+      btn.addEventListener("click", () => {
+        const options = {
+          enableHighAccuracy: true,
+        };
+        navigator.geolocation.getCurrentPosition(success, failed, options);
+
+        intervalID = setInterval(() => {
+          timersec++;
+          document.querySelector(".timer p").textContent = `${timersec} с`;
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
