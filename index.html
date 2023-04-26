@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body>
+  <body style="background:#00ff0055">
     <button>START TEST</button>
     <div class="timer" style="color: lightcoral">
       <h3>Timer:</h3>
@@ -39,6 +39,7 @@
       btn.addEventListener("click", () => {
         const options = {
           enableHighAccuracy: true,
+          timeout: 5000,
         };
         navigator.geolocation.getCurrentPosition(success, failed, options);
 
